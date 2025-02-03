@@ -7,12 +7,15 @@ const mongoose = require('mongoose');
 const connectDB  = require('./config/dbConn');
 const apiRoutes = require("./routes/api")
 const PORT = process.env.PORT || 3500;
+const API_URL = "https://twitter-clone-a1wa.onrender.com";
+
 
 connectDB();
 
+
 // middleware
 app.use(cors({
-  origin: "https://twitter-clone-a1wa.onrender.com"
+  origin: `${API_URL}`
 }));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());

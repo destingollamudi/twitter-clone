@@ -349,6 +349,18 @@ body {
   color: red;
 }
 
+/* Ensure tweets take full width */
+#feed .tweet {
+  width: 100%;
+  max-width: 700px;
+  margin: 10px auto; /* Center the tweet */
+  background-color: #192734;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word;
+}
+
 /* Optional: Right Sidebar */
 #right-sidebar {
   width: 250px;

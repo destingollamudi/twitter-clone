@@ -1,3 +1,4 @@
+const API_URL = "https://twitter-clone-a1wa.onrender.com";  // Access the global variable for API_URL
 const tweetForm = document.getElementById('tweetForm');
 const feed = document.getElementById('feed');
 const tweetBox = document.getElementById('tweet-box');
@@ -89,7 +90,7 @@ function createTweetElement({ _id, username, content, imageUrl, createdAt, likes
       <button class="delete-tweet-btn" data-id="${_id}" title="Delete Tweet">🗑️</button>
     </div>
     ${content ? `<p class="tweet-content">${content}</p>` : ""}
-    ${imageUrl ? `<img src="https://twitter-clone-a1wa.onrender.com${imageUrl}" class="tweet-image">` : ""}
+    ${imageUrl ? `<img src="${API_URL}${imageUrl}" class="tweet-image">` : ""}
     <div class="tweet-actions">
       <button class="action-btn like-btn" data-id="${_id}" data-liked="false" title="Like">
         ❤️ <span class="like-count">${likes}</span>
@@ -106,17 +107,77 @@ function createTweetElement({ _id, username, content, imageUrl, createdAt, likes
   return tweetArticle;
 }
 
-// Open tweet when clicking anywhere on it (except buttons)
-feed.addEventListener("click", (event) => {
-  const tweetElement = event.target.closest(".tweet");
-  if (!tweetElement) return;
+feed.addEventListener("click", async (event) => {
+  const likeBtn = event.target.closest(".like-btn");
+  const deleteBtn = event.target.closest(".delete-tweet-btn");
 
-  // Ignore clicks on buttons (Like, Share, Delete, etc.)
-  if (event.target.closest(".tweet-actions")) return;
+  // Handle Like Button Click
+  if (likeBtn) {
+    const tweetElement = likeBtn.closest(".tweet");
+    const tweetId = tweetElement?.dataset.id;
+    const likeCountSpan = likeBtn.querySelector(".like-count");
+    let currentCount = parseInt(likeCountSpan.textContent, 10) || 0;
 
-  const tweetId = tweetElement.dataset.id;
-  window.location.href = `/tweet.html?id=${tweetId}`;
+    const isLiked = likeBtn.dataset.liked === "true"; // Check if it's liked
+
+    try {
+      let response;
+      if (isLiked) {
+        // If the tweet is already liked, "unlike" it by decrementing the like count
+        response = await fetch(`${API_URL}/api/posts/${tweetId}/like`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ liked: false }), // "unlike"
+        });
+
+        if (response.ok) {
+          currentCount = Math.max(0, currentCount - 1); // Prevent going negative
+          likeCountSpan.textContent = currentCount;
+          likeBtn.dataset.liked = "false";
+        }
+      } else {
+        // "like" it by incrementing the like count
+        response = await fetch(`${API_URL}/api/posts/${tweetId}/like`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ liked: true }), // "like"
+        });
+
+        if (response.ok) {
+          currentCount++;
+          likeCountSpan.textContent = currentCount;
+          likeBtn.dataset.liked = "true";
+        }
+      }
+    } catch (error) {
+      console.error("Error liking/unliking tweet:", error);
+    }
+  }
+
+  // Handle Delete Button Click
+  if (deleteBtn) {
+    event.stopPropagation(); // Prevent click from redirecting to tweet page
+
+    const tweetId = deleteBtn.dataset.id;
+    const tweetElement = deleteBtn.closest(".tweet");
+
+    try {
+      const response = await fetch(`${API_URL}/api/posts/${tweetId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        tweetElement.remove(); // Remove tweet from the feed on success
+      } else {
+        alert("Failed to delete tweet.");
+      }
+    } catch (error) {
+      console.error("Error deleting tweet:", error);
+      alert("Error deleting tweet.");
+    }
+  }
 });
+
 
 // Share button: Copy link to clipboard and notify user
 feed.addEventListener("click", async (event) => {
@@ -156,7 +217,7 @@ feed.addEventListener("click", (event) => {
 
 async function fetchAndDisplayPosts() {
   try {
-    const response = await fetch("https://twitter-clone-a1wa.onrender.com/api/posts");
+    const response = await fetch(`${API_URL}/api/posts`);
     const posts = await response.json();
 
     feed.innerHTML = ""; 
@@ -221,7 +282,7 @@ tweetForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("https://twitter-clone-a1wa.onrender.com/api/upload-tweet", {
+    const response = await fetch(`${API_URL}/api/upload-tweet`, {
       method: "POST",
       body: formData,
     });
@@ -283,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let response;
       if (isLiked) {
         // If the tweet is already liked, "unlike" it by decrementing the like count
-        response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}/like`, {
+        response = await fetch(`${API_URL}/${tweetId}/like`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ liked: false }), // Send the "unlike" request
@@ -298,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } else {
         // If the tweet is not liked, "like" it by incrementing the like count
-        response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}/like`, {
+        response = await fetch(`${API_URL}/api/posts/${tweetId}/like`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ liked: true }), // Send the "like" request
@@ -319,27 +380,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error liking/unliking tweet:", error);
     }
   });
-});
-
-
-feed.addEventListener("click", async (event) => {
-  if (event.target.classList.contains("delete-tweet-btn")) {
-    const tweetId = event.target.dataset.id;
-    const tweetElement = event.target.closest(".tweet");
-
-    try {
-      const response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        tweetElement.remove(); // Remove from UI
-      } else {
-        alert("Failed to delete tweet.");
-      }
-    } catch (error) {
-      console.error("Error deleting tweet:", error);
-      alert("Error deleting tweet.");
-    }
-  }
 });

@@ -77,6 +77,17 @@ body {
   color: #e1e8ed;
 }
 
+#feed .tweet {
+  width: 100%; /* Ensure full width for the tweet */
+  max-width: 600px; /* Set a max-width to prevent tweets from becoming too wide */
+  margin: 10px auto; /* Center the tweet */
+  background-color: #192734;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word; /* Prevent text from overflowing */
+}
+
 /* Tweet Image */
 .tweet-image {
   max-width: 100%; /* Makes sure images fit inside tweet */
@@ -145,16 +156,3 @@ body {
   background-color: #1991DA;
 }
 
-/* Share Button */
-.share-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.share-btn:hover {
-  color: #1DA1F2;
-}

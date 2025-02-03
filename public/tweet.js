@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", fetchTweetById);
+const API_URL = "https://twitter-clone-a1wa.onrender.com";
 
 const pfpArray = [
   '/img/pfp1.svg',
@@ -26,7 +27,7 @@ async function fetchTweetById() {
   try {
     console.log(`Fetching tweet with ID: ${tweetId}`);
 
-    const response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}`);
+    const response = await fetch(`${API_URL}/api/posts/${tweetId}`);
     
     // Check the response status and log the result
     console.log("Response Status:", response.status);
@@ -53,7 +54,7 @@ async function fetchTweetById() {
     // Update Open Graph meta tags for sharing preview
     document.querySelector('meta[property="og:title"]').setAttribute("content", `${post.username}'s Tweet`);
     document.querySelector('meta[property="og:description"]').setAttribute("content", post.content || "See the full conversation and comments.");
-    document.querySelector('meta[property="og:image"]').setAttribute("content", post.imageUrl ? `https://twitter-clone-a1wa.onrender.com${post.imageUrl}` : "default-preview.jpg");
+    document.querySelector('meta[property="og:image"]').setAttribute("content", post.imageUrl ? `${API_URL}${post.imageUrl}` : "default-preview.jpg");
     document.querySelector('meta[property="og:url"]').setAttribute("content", window.location.href);
 
     // Populate the tweet content dynamically in the HTML
@@ -67,7 +68,7 @@ async function fetchTweetById() {
           </div>
         </div>
         ${post.content ? `<p class="tweet-content">${post.content}</p>` : ""}
-        ${post.imageUrl ? `<img src="https://twitter-clone-a1wa.onrender.com${post.imageUrl}" class="tweet-image">` : ""}
+        ${post.imageUrl ? `<img src="${API_URL}${post.imageUrl}" class="tweet-image">` : ""}
         <h3>Comments</h3>
         <div id="comments">
           ${post.comments.map(comment => `
@@ -88,7 +89,7 @@ async function fetchTweetById() {
       if (!content) return;
 
       try {
-        await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}/comment`, {
+        await fetch(`${API_URL}/api/posts/${tweetId}/comment`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: "AnonUser", content, profilePic: getRandomPfp() }),
