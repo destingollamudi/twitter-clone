@@ -1,0 +1,200 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #15202b;  
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #e1e8ed;             
+  padding: 20px;
+}
+
+.header{
+  padding: 0px 0px 40px;
+  text-align: center;
+}
+
+/* Container to arrange the profile picture and form side by side */
+.post-tweet-container {
+  display: flex;
+  align-items: flex-start; /* Adjust alignment if needed */
+  gap: 15px; /* Space between the profile picture and the form */
+  background-color: #192734; /* Example background; match your theme */
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.post-tweet-pfp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 5px;  
+}
+
+#tweetForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#tweetForm input[type="text"],
+#tweetForm textarea {
+  width: 100%;
+  background-color: #15202b;
+  border: 1px solid #38444d;
+  color: #e1e8ed;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#tweetForm textarea {
+  resize: none;    
+  height: 80px;    
+}
+
+#tweet-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+#char-counter {
+  align-self: flex-end;
+  opacity: 0;
+}
+
+#tweetForm button {
+  align-self: flex-end;
+  background-color: #e1e8ed;
+  color: #15202b;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#tweetForm button:hover {
+  background-color: #ffffff;
+}
+
+
+#feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tweet {
+  background-color: #192734;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tweet-pfp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;       
+  object-fit: cover;        
+  margin-right: 15px;
+}
+
+.tweet-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweet-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.tweet-time {
+  font-size: 14px;
+  color: #8899a6;
+}
+
+#tweet-box {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.tweet-actions {
+  display: flex;
+  justify-content: space-around; 
+  margin-top: 10px;
+  border-top: 1px solid #38444d;  
+  padding-top: 10px;
+}
+
+.tweet-actions .action-btn {
+  background: none;
+  border: none;
+  color: #8899a6;           
+  font-size: 20px;         
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tweet-actions .action-btn:hover {
+  color: #1da1f2;           
+}
+
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;  
+  margin-top: 10px;
+}
+
+#tweet-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#char-counter {
+  width: 30px;
+  height: 30px;
+  padding-bottom: 35px;
+}
+
+#char-counter svg {
+  transform: rotate(-90deg);
+}
+
+#counter-bg {
+  stroke: #eee;
+}
+
+#counter-progress {
+  stroke: #1DA1F2;
+  transition: stroke-dashoffset 0.2s ease;
+}
+
+
