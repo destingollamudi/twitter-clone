@@ -1,4 +1,4 @@
-
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,27 +6,85 @@
 }
 
 body {
-  background-color: #15202b;  
+  background-color: #15202b;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #e1e8ed;             
+  color: #e1e8ed;
   padding: 20px;
-}
-
-.header{
-  padding: 0px 0px 40px;
-  text-align: center;
-}
-
-/* Container to arrange the profile picture and form side by side */
-.post-tweet-container {
   display: flex;
-  align-items: flex-start; /* Adjust alignment if needed */
-  gap: 15px; /* Space between the profile picture and the form */
-  background-color: #192734; /* Example background; match your theme */
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main Layout */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Desktop Navbar (Left Sidebar) */
+#navbar {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  padding: 15px;
+  background-color: #192734;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* Navbar Items */
+#navbar div {
+  padding: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+#navbar div:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Content Area (Post Tweet & Feed) */
+.content-container {
+  flex: 1;
+  max-width: 600px;
+}
+
+/* Right Sidebar */
+#right-sidebar {
+  width: 250px;
+  background-color: #192734;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* Post Tweet Section */
+#post-tweet {
+  background-color: #192734;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+.post-tweet-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .post-tweet-pfp {
@@ -34,7 +92,7 @@ body {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 5px;  
+  margin-top: 5px;
 }
 
 #tweetForm {
@@ -56,132 +114,95 @@ body {
 }
 
 #tweetForm textarea {
-  resize: none;    
-  height: 80px;    
+  resize: none;
+  height: 80px;
 }
+
+/* Upload Button */
+#uploadLabel {
+  display: inline-block;
+  background-color: #1DA1F2;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+#uploadLabel:hover {
+  background-color: #1991DA;
+}
+
+/* Hide file input */
+#imageUpload {
+  display: none;
+}
+
+/* Remove Image Button */
+#removeImageButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#removeImageButton:hover {
+  background: rgba(255, 0, 0, 0.8);
+}
+
 
 #tweet-controls {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 10px;
+  justify-content: space-between; 
+  gap: 10px;
+  width: 100%; 
 }
 
-#char-counter {
-  align-self: flex-end;
-  opacity: 0;
-}
-
-#tweetForm button {
-  align-self: flex-end;
-  background-color: #e1e8ed;
-  color: #15202b;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-#tweetForm button:hover {
-  background-color: #ffffff;
-}
-
-
-#feed {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.tweet {
-  background-color: #192734;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.tweet-header {
+#uploadLabel {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-}
-
-.tweet-pfp {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;       
-  object-fit: cover;        
-  margin-right: 15px;
-}
-
-.tweet-user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.tweet-username {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 2px;
-}
-
-.tweet-time {
-  font-size: 14px;
-  color: #8899a6;
-}
-
-#tweet-box {
-  width: 100%;
-  height: 100px;
-  resize: none;
-  font-size: 16px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.tweet-actions {
-  display: flex;
-  justify-content: space-around; 
-  margin-top: 10px;
-  border-top: 1px solid #38444d;  
-  padding-top: 10px;
-}
-
-.tweet-actions .action-btn {
-  background: none;
-  border: none;
-  color: #8899a6;           
-  font-size: 20px;         
+  justify-content: center;
+  width: 32px;  
+  height: 32px; 
+  font-size: 22px; 
+  line-height: 1;
+  margin-top: -2px; 
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: transform 0.2s ease;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.tweet-actions .action-btn:hover {
-  color: #1da1f2;           
+#uploadLabel:hover {
+  transform: scale(1.1);
 }
 
-#controls {
+#imageUpload {
+  display: none;
+}
+
+#tweet-controls-right {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;  
-  margin-top: 10px;
-}
-
-#tweet-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
+  gap: 10px; 
 }
 
 #char-counter {
   width: 30px;
   height: 30px;
-  padding-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #char-counter svg {
@@ -197,4 +218,189 @@ body {
   transition: stroke-dashoffset 0.2s ease;
 }
 
+#tweetForm button {
+  background-color: #1DA1F2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
+#tweetForm button:hover {
+  background-color: #1991DA;
+}
+
+/* Feed Section */
+#feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* General Tweet Styles */
+.tweet {
+  background-color: #192734;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  max-width: 600px; /* ✅ Prevents tweets from being too wide */
+  margin: 10px auto; /* ✅ Centers the tweet */
+  word-wrap: break-word; /* ✅ Prevents text from overflowing */
+}
+
+/* Tweet Header */
+.tweet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Profile Picture */
+.tweet-pfp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Username and Time */
+.tweet-user-info {
+  flex-grow: 1;
+}
+
+.tweet-username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e1e8ed;
+}
+
+.tweet-time {
+  font-size: 14px;
+  color: #8899a6;
+}
+
+/* Tweet Content */
+.tweet-content {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #e1e8ed;
+}
+
+/* Tweet Image */
+.tweet-image {
+  max-width: 100%; /* ✅ Makes sure images fit inside tweet */
+  border-radius: 8px;
+  display: block;
+  margin-top: 10px;
+  height: auto;
+}
+
+/* Tweet Actions */
+.tweet-actions {
+  display: flex;
+  justify-content: space-between; /* ✅ Ensures buttons are evenly spaced */
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #38444d;
+  margin-top: 10px;
+}
+
+/* Action Buttons */
+.action-btn {
+  background: none;
+  border: none;
+  color: #8899a6;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.action-btn:hover {
+  color: #1da1f2;
+}
+
+/* Share Button Fix */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+
+/* Delete button */
+.delete-tweet-btn {
+  background: none;
+  border: none;
+  color: #8899a6;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-left: auto;
+}
+
+.delete-tweet-btn:hover {
+  color: red;
+}
+
+/* Optional: Right Sidebar */
+#right-sidebar {
+  width: 250px;
+  background-color: #192734;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 768px) {
+  /* Hide Right Sidebar */
+  #right-sidebar {
+    display: none;
+  }
+
+  /* Move Navbar to Bottom */
+  #navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    position: fixed !important; /* Ensure it's fixed */
+    bottom: 0 !important; /* Force it to the bottom */
+    left: 0;
+    right: 0;
+    top: auto !important; /* Prevent sticking to the top */
+    background-color: #192734;
+    padding: 0;
+    z-index: 1000; /* Ensures navbar stays above content */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Navbar Items */
+  #navbar div {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+  }
+
+  /* Show Only Home, Explore, Notifications, and Messages */
+  #navbar div:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) {
+    display: none;
+  }
+
+  /* Prevent Content from Being Covered by Navbar */
+  .content-container {
+    margin-bottom: 80px; /* Adjust to leave space for fixed navbar */
+  }
+}

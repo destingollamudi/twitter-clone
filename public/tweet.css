@@ -1,0 +1,160 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #15202b;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #e1e8ed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Main Layout */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+/* Tweet Container */
+#tweet-container {
+  background-color: #192734;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 700px; /* Prevents tweet from being too wide */
+  margin: 20px auto;
+  word-wrap: break-word;
+}
+
+/* Tweet Header */
+.tweet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Profile Picture */
+.tweet-pfp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Username and Time */
+.tweet-user-info {
+  flex-grow: 1;
+}
+
+.tweet-username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e1e8ed;
+}
+
+.tweet-time {
+  font-size: 14px;
+  color: #8899a6;
+}
+
+/* Tweet Content */
+.tweet-content {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #e1e8ed;
+}
+
+/* Tweet Image */
+.tweet-image {
+  max-width: 100%; /* Makes sure images fit inside tweet */
+  border-radius: 8px;
+  display: block;
+  margin-top: 10px;
+  height: auto;
+}
+
+/* Comment Section */
+#comments {
+  margin-top: 20px;
+}
+
+.comment {
+  background-color: #192734;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.comment-pfp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment p {
+  color: #e1e8ed;
+  font-size: 14px;
+}
+
+.comment p strong {
+  font-weight: bold;
+}
+
+/* Comment Box */
+#comment-box {
+  width: 100%;
+  background-color: #15202b;
+  border: 1px solid #38444d;
+  color: #e1e8ed;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+#post-comment {
+  background-color: #1DA1F2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+#post-comment:hover {
+  background-color: #1991DA;
+}
+
+/* Share Button */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  color: #1DA1F2;
+}

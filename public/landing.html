@@ -10,56 +10,69 @@
   <header class="header">
     <h1>Twitter</h1>
   </header>
-  <section id="post-tweet">
-    <div class="post-tweet-container">
-      <img src="/img/pfp1.svg" alt="Your Profile Picture" class="post-tweet-pfp">
-      <form id="tweetForm">
-        <input type="text" name="username" placeholder="Your name" required>
-        <textarea id="tweet-box" name="tweet" placeholder="What's happening?" maxlength="280" required></textarea>
-        <div id="tweet-controls">
-          <div id="char-counter">
-            <svg width="30" height="30">
-              <circle id="counter-bg" cx="15" cy="15" r="12" stroke-width="4" fill="none" />
-              <circle id="counter-progress" cx="15" cy="15" r="12" stroke-width="4" fill="none"
-                      stroke-dasharray="75.4" stroke-dashoffset="75.4" />
-            </svg>
-          </div>
-          <button type="submit" id="tweet-button">Tweet</button>
-        </div>
-        
-      </form>
-    </div>
-  </section>
-  <section id="feed">
-    <article class="tweet">
-      <div class="tweet-header">
-        <img src="/img/pfp1.svg" alt="Profile Picture" class="tweet-pfp">
-        <div class="tweet-user-info">
-          <h2 class="tweet-username">dinosauce13</h2>
-          <time class="tweet-time" datetime="2025-02-02T12:00:00Z">Feb 2, 2025</time>
-        </div>
-      </div>
-      <p class="tweet-content">
-        Today I woke up inspired by the endless possibilities of our digital world. Every idea sparks a new conversation, every innovation opens doors to a brighter future. Let’s use our voices and creativity to connect, empower, and transform our reality together. #innovationrocks #AIwin
-      </p>
-      <div class="tweet-actions">
-        <button class="action-btn like-btn" title="Like">
-          <span>❤️</span><span class="like-count">10</span>
-        </button>
-        <button class="action-btn retweet-btn" title="Retweet">
-          <span>🔁</span>
-        </button>
-        <button class="action-btn comment-btn" title="Comment">
-          <span>💬</span>
-        </button>
-        <button class="action-btn share-btn" title="Share">
-          <span>↗️</span>
-        </button>
-      </div>
-    </article>    
 
-            
-  </section>
+  <div class="main-container">
+    <div id="navbar">
+      <div>Home</div>
+      <div>Explore</div>
+      <div>Notifications</div>
+      <div>Messages</div>
+      <div>Grok</div>
+      <div>Bookmarks</div>
+      <div>Communities</div>
+      <div>Premium</div>
+      <div>Verified Orgs</div>
+      <div>Profile</div>
+      <div>More</div>
+      <div>Post</div>
+      <div>Profile</div>
+    </div>
+
+    <div class="content-container">
+      <section id="post-tweet">
+        <div class="post-tweet-container">
+          <img id="postFormPfp" src="" alt="Profile Picture" class="post-tweet-pfp">
+          <form id="tweetForm">
+            <input type="text" name="username" placeholder="Your name" required>
+            <textarea id="tweet-box" name="tweet" placeholder="What's happening?" maxlength="280" required></textarea>
+            <div id="imageUploadContainer">
+            </div>
+            <div id="imagePreviewContainer" style="display: none; position: relative;">
+              <img id="imagePreview" src="" alt="Image Preview" style="max-width: 100%; border-radius: 8px;">
+              <button id="removeImageButton" style="position: absolute; top: 5px; right: 5px; background: rgba(0, 0, 0, 0.6); color: white; border: none; padding: 5px 10px; border-radius: 50%; cursor: pointer;">✖</button>
+            </div>
+            <div id="tweet-controls">
+              <label for="imageUpload" id="uploadLabel">📷</label>
+              <input type="file" id="imageUpload" accept="image/*" hidden>
+              <div id="tweet-controls-right">
+                <div id="char-counter">
+                  <svg width="30" height="30">
+                    <circle id="counter-bg" cx="15" cy="15" r="12" stroke-width="4" fill="none" />
+                    <circle id="counter-progress" cx="15" cy="15" r="12" stroke-width="4" fill="none"
+                            stroke-dasharray="75.4" stroke-dashoffset="75.4" />
+                  </svg>
+                </div>
+                <button type="submit" id="tweet-button">Tweet</button>
+              </div>
+            </div> 
+          </form>
+        </div>
+      </section>
+
+      <section id="feed">
+        
+      </section>
+    </div>
+    <div id="right-sidebar">
+      <h2>Trending</h2>
+      <p>#WebDevelopment</p>
+      <p>#JavaScript</p>
+      <p>#CSS</p>
+      <p>#React</p>
+    </div>
+  </div>
 </body>
+
 <script type="module" src="./main.js"></script>
+<script type="module" src="./tweet.js"></script>
 </html>
