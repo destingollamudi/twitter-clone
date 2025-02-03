@@ -13,7 +13,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // serve static files
-app.use('/', express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "landing.html"));
+});
 
 //routes 
 
