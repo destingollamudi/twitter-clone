@@ -11,7 +11,9 @@ const PORT = process.env.PORT || 3500;
 connectDB();
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://twitter-clone-a1wa.onrender.com/"
+}));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
