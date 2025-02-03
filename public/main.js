@@ -89,7 +89,7 @@ function createTweetElement({ _id, username, content, imageUrl, createdAt, likes
       <button class="delete-tweet-btn" data-id="${_id}" title="Delete Tweet">🗑️</button>
     </div>
     ${content ? `<p class="tweet-content">${content}</p>` : ""}
-    ${imageUrl ? `<img src="http://localhost:3500${imageUrl}" class="tweet-image">` : ""}
+    ${imageUrl ? `<img src="https://twitter-clone-a1wa.onrender.com${imageUrl}" class="tweet-image">` : ""}
     <div class="tweet-actions">
       <button class="action-btn like-btn" data-id="${_id}" data-liked="false" title="Like">
         ❤️ <span class="like-count">${likes}</span>
@@ -156,7 +156,7 @@ feed.addEventListener("click", (event) => {
 
 async function fetchAndDisplayPosts() {
   try {
-    const response = await fetch("http://localhost:3500/api/posts");
+    const response = await fetch("https://twitter-clone-a1wa.onrender.com/api/posts");
     const posts = await response.json();
 
     feed.innerHTML = ""; 
@@ -221,7 +221,7 @@ tweetForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("http://localhost:3500/api/upload-tweet", {
+    const response = await fetch("https://twitter-clone-a1wa.onrender.com/api/upload-tweet", {
       method: "POST",
       body: formData,
     });
@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let response;
       if (isLiked) {
         // If the tweet is already liked, "unlike" it by decrementing the like count
-        response = await fetch(`http://localhost:3500/api/posts/${tweetId}/like`, {
+        response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}/like`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ liked: false }), // Send the "unlike" request
@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } else {
         // If the tweet is not liked, "like" it by incrementing the like count
-        response = await fetch(`http://localhost:3500/api/posts/${tweetId}/like`, {
+        response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}/like`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ liked: true }), // Send the "like" request
@@ -328,7 +328,7 @@ feed.addEventListener("click", async (event) => {
     const tweetElement = event.target.closest(".tweet");
 
     try {
-      const response = await fetch(`http://localhost:3500/api/posts/${tweetId}`, {
+      const response = await fetch(`https://twitter-clone-a1wa.onrender.com/api/posts/${tweetId}`, {
         method: "DELETE",
       });
 

@@ -12,7 +12,7 @@ connectDB();
 
 // middleware
 app.use(cors({
-  origin: "https://twitter-clone-a1wa.onrender.com/"
+  origin: "https://twitter-clone-a1wa.onrender.com"
 }));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
