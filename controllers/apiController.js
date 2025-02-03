@@ -1,4 +1,4 @@
-const Post = require("../models/Tweet");
+const Post = require("../models/tweet");
 
 /* 🔹 CREATE A POST */
 exports.createPost = async (req, res) => {
