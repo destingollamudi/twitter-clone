@@ -5,7 +5,7 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const connectDB  = require('./config/dbConn');
-const apiRoutes = require("./routes/api")
+const apiRoutes = require("./routes/apiRoutes")
 const PORT = process.env.PORT || 5500;
 const API_URL = "http://localhost:5500";
 

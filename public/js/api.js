@@ -1,6 +1,5 @@
 const API_URL = "http://localhost:5500"; // Ensure this is correct for backend communication
 
-
 const tweetsPerPage = 15;
 let currentPage = 1;  // Track current page
 

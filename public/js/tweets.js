@@ -107,6 +107,20 @@ export function setUpFeed() {
 
     const tweetId = tweetElement.dataset.id;
 
+    // Handle Like Button Click
+    const likeBtn = event.target.closest(".like-btn");
+    if (likeBtn) {
+      await handleLike(tweetId, likeBtn);
+      return;
+    }
+
+    // Handle Delete Button Click
+    const deleteBtn = event.target.closest(".delete-tweet-btn");
+    if (deleteBtn) {
+      await handleDelete(tweetId, tweetElement);
+      return;
+    }
+
     // Handle Comment Button Click
     const commentBtn = event.target.closest(".comment-btn");
     if (commentBtn) {
@@ -131,6 +145,37 @@ export function setUpFeed() {
       }
     }
   });
+}
+
+async function handleLike(tweetId, likeBtn) {
+  try {
+    const likeCountSpan = likeBtn.querySelector(".like-count");
+    let currentCount = parseInt(likeCountSpan.textContent, 10) || 0;
+
+    // Check if already liked
+    const isLiked = likeBtn.dataset.liked === "true";
+    const result = await likeTweet(tweetId);
+
+    if (result) {
+      likeCountSpan.textContent = isLiked ? currentCount - 1 : currentCount + 1;
+      likeBtn.dataset.liked = isLiked ? "false" : "true";
+    }
+  } catch (error) {
+    console.error("Error liking/unliking tweet:", error);
+  }
+}
+
+async function handleDelete(tweetId, tweetElement) {
+  if (!confirm("Are you sure you want to delete this tweet?")) return;
+
+  try {
+    const response = await deleteTweet(tweetId);
+    if (response) {
+      tweetElement.remove(); // Remove the tweet from the UI
+    }
+  } catch (error) {
+    console.error("Error deleting tweet:", error);
+  }
 }
 
 async function fetchComments(tweetId, tweetElement) {
