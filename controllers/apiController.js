@@ -29,9 +29,8 @@ exports.createPost = async (req, res) => {
 };
 
 
-
 /* 🔹 GET ALL POSTS */
-const getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 15;
