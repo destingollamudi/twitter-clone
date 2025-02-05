@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter Clone</title>
+  <link rel="stylesheet" href="/landing.c8979d2d.css">
+  <script>window.API_URL = "http://localhost:3500"; // Put your API URL here
+
+</script>
+  
+</head>
+<body>
+  <header class="header">
+    <h1>Twitter</h1>
+  </header>
+
+  <div class="main-container">
+    <div id="navbar">
+      <div>Home</div>
+      <div>Explore</div>
+      <div>Notifications</div>
+      <div>Messages</div>
+      <div>Grok</div>
+      <div>Bookmarks</div>
+      <div>Communities</div>
+      <div>Premium</div>
+      <div>Verified Orgs</div>
+      <div>Profile</div>
+      <div>More</div>
+      <div>Post</div>
+      <div>Profile</div>
+    </div>
+
+    <div class="content-container">
+      <section id="post-tweet">
+        <div class="post-tweet-container">
+          <img id="postFormPfp" alt="Profile Picture" class="post-tweet-pfp">
+          <form id="tweetForm">
+            <input type="text" name="username" placeholder="Your name" required="">
+            <textarea id="tweet-box" name="tweet" placeholder="What's happening?" maxlength="280" required=""></textarea>
+            <div id="imageUploadContainer">
+            </div>
+            <div id="imagePreviewContainer" style="display: none; position: relative">
+              <img id="imagePreview" alt="Image Preview" style="border-radius: 8px; max-width: 100%">
+              <button id="removeImageButton" style="color: #fff; cursor: pointer; background: #0009; border: none; border-radius: 50%; padding: 5px 10px; position: absolute; top: 5px; right: 5px">✖</button>
+            </div>
+            <div id="tweet-controls">
+              <label for="imageUpload" id="uploadLabel">📷</label>
+              <input type="file" id="imageUpload" accept="image/*" hidden="">
+              <div id="tweet-controls-right">
+                <div id="char-counter">
+                  <svg width="30" height="30">
+                    <circle id="counter-bg" cx="15" cy="15" r="12" stroke-width="4" fill="none"></circle>
+                    <circle id="counter-progress" cx="15" cy="15" r="12" stroke-width="4" fill="none" stroke-dasharray="75.4" stroke-dashoffset="75.4"></circle>
+                  </svg>
+                </div>
+                <button type="submit" id="tweet-button">Tweet</button>
+              </div>
+            </div> 
+          </form>
+        </div>
+      </section>
+
+      <section id="feed">
+        
+      </section>
+    </div>
+    <div id="right-sidebar">
+      <h2>Trending</h2>
+      <p>#WebDevelopment</p>
+      <p>#JavaScript</p>
+      <p>#CSS</p>
+      <p>#React</p>
+    </div>
+  </div>
+</body>
+
+<script src="/landing.2db1dc11.js" defer=""></script>
+</html>

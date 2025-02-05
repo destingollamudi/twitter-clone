@@ -13,10 +13,22 @@ const API_URL = "https://twitter-clone-a1wa.onrender.com";
 connectDB();
 
 
-// middleware
+const allowedOrigins = [
+  'http://localhost:3500',  // Allow your dev environment (localhost)
+  'https://twitter-clone-a1wa.onrender.com', // Allow the production server
+];
+
+// Enable CORS with specific allowed origins
 app.use(cors({
-  origin: `${API_URL}`
+  origin: function(origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true); // Allow requests from the allowed origins
+    } else {
+      callback(new Error('Not allowed by CORS'), false); // Block other origins
+    }
+  }
 }));
+
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));

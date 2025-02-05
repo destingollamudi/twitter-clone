@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #e1e8ed;
+  background-color: #15202b;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: flex;
+}
+
+.main-container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  display: flex;
+}
+
+#tweet-container {
+  word-wrap: break-word;
+  background-color: #192734;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 2px 8px #00000080;
+}
+
+.tweet-header {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.tweet-pfp {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.tweet-user-info {
+  flex-grow: 1;
+}
+
+.tweet-username {
+  color: #e1e8ed;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.tweet-time {
+  color: #8899a6;
+  font-size: 14px;
+}
+
+.tweet-content {
+  color: #e1e8ed;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+#feed .tweet {
+  word-wrap: break-word;
+  background-color: #192734;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px #00000080;
+}
+
+.tweet-image {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  display: block;
+}
+
+#comments {
+  margin-top: 20px;
+}
+
+.comment {
+  background-color: #192734;
+  border-radius: 8px;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+}
+
+.comment-pfp {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.comment p {
+  color: #e1e8ed;
+  font-size: 14px;
+}
+
+.comment p strong {
+  font-weight: bold;
+}
+
+#comment-box {
+  color: #e1e8ed;
+  background-color: #15202b;
+  border: 1px solid #38444d;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+#post-comment {
+  color: #fff;
+  cursor: pointer;
+  background-color: #1da1f2;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color .2s;
+}
+
+#post-comment:hover {
+  background-color: #1991da;
+}
+/*# sourceMappingURL=tweet.116f21a2.css.map */
