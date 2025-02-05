@@ -1,4 +1,7 @@
-const API_URL = "http://localhost:5500"; // Update this with your API URL
+const API_URL = window.location.origin.includes("localhost")
+  ? "http://localhost:5500" 
+  : "https://your-deployed-api-url.com";  // Replace with your Render URL
+
 
 // Function to get query parameters from URL
 function getQueryParam(param) {

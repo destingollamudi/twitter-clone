@@ -1,4 +1,8 @@
-const API_URL = "http://localhost:5500"; // Ensure this is correct for backend communication
+import { createTweetElement } from "./tweets";
+
+const API_URL = window.location.origin.includes("localhost")
+  ? "http://localhost:5500" 
+  : "https://your-deployed-api-url.com";  // Replace with your Render URL
 
 const tweetsPerPage = 15;
 let currentPage = 1;  // Track current page

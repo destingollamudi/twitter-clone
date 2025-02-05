@@ -34,9 +34,14 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/api", apiRoutes);
 
+app.get("/*.js", (req, res, next) => {
+  res.type("application/javascript");
+  next();
+});
+
 // serve static files
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/uploads", express.static("uploads"));
+//app.use("/uploads", express.static("uploads"));
 
 
 app.get('*', (req, res) => {
