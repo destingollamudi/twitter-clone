@@ -5,15 +5,18 @@ exports.createPost = async (req, res) => {
     const { content } = req.body;
     if (!content) return res.status(400).json({ message: "Content is required" });
 
-    // Get Cloudinary image URL
-    let imageUrl = null;
+    let mediaUrl = null;
+    let mediaType = null;
+    
     if (req.file) {
-      imageUrl = req.file.path; // Cloudinary automatically provides a secure URL
+      mediaUrl = req.file.path; // Cloudinary provides a secure URL
+      mediaType = req.file.mimetype.startsWith("video/") ? "video" : "image";
     }
 
     const newPost = new Post({
       content,
-      image: imageUrl, // Save Cloudinary URL in DB
+      media: mediaUrl, // Store media URL (image or video)
+      mediaType, // Store media type
       createdAt: new Date(),
     });
 
@@ -26,19 +29,26 @@ exports.createPost = async (req, res) => {
 };
 
 
+
 /* 🔹 GET ALL POSTS */
-exports.getAllPosts = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 10;
+    const limit = parseInt(req.query.limit) || 15;
+    const skip = (page - 1) * limit;
+
+    const totalPosts = await Post.countDocuments();
+    const totalPages = Math.ceil(totalPosts / limit);
+
     const posts = await Post.find()
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
+      .sort({ createdAt: -1 }) // Show newest tweets first
+      .skip(skip)
       .limit(limit);
-    res.json(posts);
+
+    res.json({ posts, totalPages });
   } catch (error) {
     console.error("Error fetching posts:", error);
-    res.status(500).json({ error: "Failed to fetch posts" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

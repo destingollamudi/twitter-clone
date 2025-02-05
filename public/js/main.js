@@ -1,4 +1,4 @@
-import { addTweet, createTweetElement } from './tweet.js';
+import { addTweet, createTweetElement } from './tweets.js';
 import { fetchPosts } from './api.js';
 
 document.addEventListener('DOMContentLoaded', () => {

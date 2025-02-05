@@ -1,29 +1,64 @@
 const API_URL = "http://localhost:5500"; // Ensure this is correct for backend communication
 
-// Fetch all posts
-export async function fetchPosts() {
+
+const tweetsPerPage = 15;
+let currentPage = 1;  // Track current page
+
+export async function fetchPosts(page = 1) {
   try {
-    const response = await fetch(`${API_URL}/api/posts`);
-    return await response.json();
+    const response = await fetch(`${API_URL}/api/posts?page=${page}&limit=${tweetsPerPage}`);
+    if (!response.ok) throw new Error("Failed to fetch tweets.");
+
+    const { posts, totalPages } = await response.json(); // Expect backend to return totalPages
+
+    // Clear existing feed before appending new tweets
+    feed.innerHTML = "";
+
+    posts.forEach((post) => {
+      const tweetElement = createTweetElement(post);
+      feed.appendChild(tweetElement);
+    });
+
+    updatePaginationButtons(totalPages);
   } catch (error) {
     console.error("Error fetching tweets:", error);
   }
 }
 
+
 // Post a new tweet with an image
-export async function postTweet(formData) {
+export async function postTweet(event) {
+  event.preventDefault();
+
+  const formData = new FormData();
+  const content = document.querySelector("#tweet-box").value;
+  const mediaFile = document.querySelector("#mediaUpload").files[0];
+
+  formData.append("content", content);
+  if (mediaFile) formData.append("media", mediaFile);
+
   try {
-    const response = await fetch(`${API_URL}/api/upload-tweet`, {
+    const response = await fetch(`${window.API_URL}/api/upload-tweet`, {
       method: "POST",
       body: formData,
     });
 
     if (!response.ok) throw new Error("Failed to post tweet.");
-    return await response.json();
+    const newTweet = await response.json();
+    console.log("Tweet posted:", newTweet);
+
+    // Clear input fields
+    document.querySelector("#tweet-box").value = "";
+    document.querySelector("#mediaUpload").value = "";
+    mediaPreviewContainer.style.display = "none";
+
+    // Refresh feed to show the new tweet
+    fetchPosts();
   } catch (error) {
     console.error("Error posting tweet:", error);
   }
 }
+
 
 // Like a tweet
 export async function likeTweet(tweetId) {

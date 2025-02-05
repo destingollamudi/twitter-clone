@@ -47,7 +47,7 @@
             </div>
             <div id="tweet-controls">
               <label for="imageUpload" id="uploadLabel">📷</label>
-              <input type="file" id="imageUpload" accept="image/*" hidden>
+              <input type="file" id="mediaUpload" accept="image/*, video/*" hidden>
               <div id="tweet-controls-right">
                 <div id="char-counter">
                   <svg width="30" height="30">
@@ -64,8 +64,13 @@
       </section>
 
       <section id="feed">
-        
+
       </section>
+      <div id="pagination">
+        <button id="prevPage" disabled>← Previous</button>
+        <span id="pageIndicator">Page 1</span>
+        <button id="nextPage">Next →</button>
+      </div>
     </div>
     <div id="right-sidebar">
       <h2>Trending</h2>

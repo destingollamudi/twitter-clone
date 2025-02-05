@@ -10,17 +10,20 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Set up storage engine
+// Storage settings for images and videos
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: "tweets", // Folder name in Cloudinary
-    format: async (req, file) => "jpg", // Convert all uploads to JPG
-    public_id: (req, file) => Date.now() + "-" + file.originalname,
+  params: async (req, file) => {
+    const isVideo = file.mimetype.startsWith("video/");
+    return {
+      folder: "tweets",
+      resource_type: isVideo ? "video" : "image", // Store videos properly
+      public_id: Date.now() + "-" + file.originalname,
+    };
   },
 });
 
-// Multer Middleware for Image Uploads
+// Multer Middleware
 const upload = multer({ storage });
 
 module.exports = { cloudinary, upload };

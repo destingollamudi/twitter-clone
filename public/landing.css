@@ -416,3 +416,45 @@ body {
     margin-bottom: 80px; /* Adjust to leave space for fixed navbar */
   }
 }
+
+
+
+/* Keep pagination at the bottom */
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: white; /* Optional: Keep it visible */
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle top shadow */
+}
+
+#pagination button {
+  background-color: #1DA1F2; /* Twitter blue */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#pagination button:disabled {
+  background-color: #AAB8C2; /* Lighter gray for disabled buttons */
+  cursor: not-allowed;
+}
+
+#pagination button:hover:not(:disabled) {
+  background-color: #0d8bd9; /* Darker blue on hover */
+}
+
+#pageIndicator {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}

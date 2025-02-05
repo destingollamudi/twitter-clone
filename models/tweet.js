@@ -10,7 +10,8 @@ const CommentSchema = new mongoose.Schema({
 const PostSchema = new mongoose.Schema({
   username: { type: String, required: true, trim: true },
   content: { type: String, trim: true, maxlength: 280 },
-  imageUrl: { type: String, default: null },
+  media: { type: String }, // Store Cloudinary URL
+  mediaType: { type: String, enum: ["image", "video", null] },
   likes: { type: Number, default: 0 },
   comments: [CommentSchema], // Embedded comments
   createdAt: { type: Date, default: Date.now },
