@@ -9,6 +9,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const connectDB  = require('./config/dbConn');
 const apiRoutes = require("./routes/api")
+const fetch = require('node-fetch');
 
 
 connectDB();
