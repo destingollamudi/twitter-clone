@@ -1,10 +1,17 @@
 fetch('/config')
   .then(response => response.json())
   .then(config => {
-    const API_URL = config.apiUrl;
-    console.log("API URL:", API_URL);
+    window.API_URL = config.apiUrl || "https://twitter-clone-cxze.onrender.com"; // Fallback to prod URL
+    console.log("✅ API URL:", window.API_URL);
+
+    fetchAndDisplayPosts(); // Ensure API is set before calling fetch functions
   })
-  .catch(error => console.error("Error loading config:", error));
+  .catch(error => {
+    console.error("❌ Error loading config:", error);
+    window.API_URL = "https://twitter-clone-cxze.onrender.com"; // Fallback
+    fetchAndDisplayPosts();
+  });
+
 
 const tweetForm = document.getElementById('tweetForm');
 const feed = document.getElementById('feed');
