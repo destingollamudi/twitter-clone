@@ -27,6 +27,26 @@ const postFormPfp = document.getElementById("postFormPfp");
 counterProgress.style.strokeDasharray = circumference;
 counterProgress.style.strokeDashoffset = circumference;
 
+async function fetchAndDisplayPosts() {
+  try {
+    const response = await fetch(`${API_URL}/api/posts`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const posts = await response.json();
+
+    feed.innerHTML = ""; // Clear existing tweets before loading new ones
+
+    posts.forEach((post) => {
+      const tweetElement = createTweetElement(post);
+      feed.appendChild(tweetElement);
+    });
+  } catch (error) {
+    console.error("Error fetching tweets:", error);
+  }
+};
+
+
 tweetBox.addEventListener('input', () => {
   const currentLength = tweetBox.value.length;
   const progress = currentLength / maxLength;
