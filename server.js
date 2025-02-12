@@ -55,8 +55,60 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'public', 'landing.html'));
 })
 
-app.get("/tweet.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "tweet.html"));
+// Dynamically Serve `tweet.html` with Meta Tags
+app.get("/tweet.html", async (req, res) => {
+  const tweetId = req.query.id;
+
+  if (!tweetId) {
+    return res.sendFile(path.join(__dirname, "public", "tweet.html"));
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/api/posts/${tweetId}`);
+    const tweet = await response.json();
+
+    const metaTags = `
+      <meta property="og:title" content="${tweet.author} on TwitClone">
+      <meta property="og:description" content="${tweet.text}">
+      <meta property="og:image" content="${tweet.image ? tweet.image.replace("http://", "https://") : ""}">
+      <meta property="og:url" content="https://twitter-clone-cxze.onrender.com/tweet.html?id=${tweetId}">
+      <meta name="twitter:card" content="summary_large_image">
+    `;
+
+    // Inject meta tags into `tweet.html`
+    const tweetPage = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${tweet.author} on TwitClone</title>
+        ${metaTags}
+        <link rel="stylesheet" href="./styles/tweet.css">
+      </head>
+      <body>
+        <div class="main-container">
+          <button onclick="goToLanding()" class="back-button">Go Back</button>
+          <section id="tweet-container">
+            <h2>${tweet.author}</h2>
+            <p>${tweet.text}</p>
+            ${tweet.image ? `<img src="${tweet.image.replace("http://", "https://")}" alt="Tweet Image" style="max-width: 100%;">` : ""}
+          </section>
+        </div>
+        <script>
+          function goToLanding() {
+            window.location.href = "landing.html";
+          }
+        </script>
+      </body>
+      </html>
+    `;
+
+    res.send(tweetPage);
+  } catch (error) {
+    console.error("Error fetching tweet:", error);
+    res.sendFile(path.join(__dirname, "public", "tweet.html"));
+  }
 });
 
 app.get('*', (req, res) => {
