@@ -1,7 +1,7 @@
 require('dotenv').config();
 const PORT = process.env.PORT || 3500;
-const prodUrl = process.env.PROD_URL;
-const devUrl = process.env.DEV_URL;
+const prodUrl = process.env.PROD_URL || "https://twitter-clone-cxze.onrender.com";
+const devUrl = process.env.DEV_URL || "http://localhost:3500";
 const express = require('express');
 const cors = require('cors');
 const app = express();
