@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", fetchTweetById);
-const API_URL = "https://twitter-clone-a1wa.onrender.com";
+fetch('/config')
+  .then(response => response.json())
+  .then(config => {
+    const API_URL = config.apiUrl;
+    console.log("API URL:", API_URL);
+  })
+  .catch(error => console.error("Error loading config:", error));
+
 
 const pfpArray = [
   '/img/pfp1.svg',
@@ -105,3 +112,4 @@ async function fetchTweetById() {
     document.getElementById("tweet-container").innerHTML = "<p>❌ Failed to load tweet.</p>";
   }
 }
+

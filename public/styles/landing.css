@@ -373,6 +373,11 @@ body {
   top: 0;
 }
 
+#load-more-btn {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 768px) {
   /* Hide Right Sidebar */
   #right-sidebar {

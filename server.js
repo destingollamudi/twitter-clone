@@ -1,4 +1,7 @@
 require('dotenv').config();
+const PORT = process.env.PORT || 3500;
+const prodUrl = process.env.PROD_URL;
+const devUrl = process.env.DEV_URL;
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -6,16 +9,20 @@ const path = require('path');
 const mongoose = require('mongoose');
 const connectDB  = require('./config/dbConn');
 const apiRoutes = require("./routes/api")
-const PORT = process.env.PORT || 3500;
-const API_URL = "https://twitter-clone-a1wa.onrender.com";
 
 
 connectDB();
 
+app.get('/config', (req, res) => {
+  res.json({
+    apiUrl: prodUrl,
+  });
+});
+
 
 const allowedOrigins = [
-  'http://localhost:3500',  // Allow your dev environment (localhost)
-  'https://twitter-clone-a1wa.onrender.com', // Allow the production server
+  devUrl,  // Allow your dev environment (localhost)
+  prodUrl, // Allow the production server
 ];
 
 // Enable CORS with specific allowed origins

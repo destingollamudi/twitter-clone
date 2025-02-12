@@ -1,4 +1,11 @@
-const API_URL = "https://twitter-clone-a1wa.onrender.com";  // Access the global variable for API_URL
+fetch('/config')
+  .then(response => response.json())
+  .then(config => {
+    const API_URL = config.apiUrl;
+    console.log("API URL:", API_URL);
+  })
+  .catch(error => console.error("Error loading config:", error));
+
 const tweetForm = document.getElementById('tweetForm');
 const feed = document.getElementById('feed');
 const tweetBox = document.getElementById('tweet-box');
@@ -206,30 +213,33 @@ feed.addEventListener("click", (event) => {
   window.location.href = `/tweet.html?id=${tweetId}`;
 });
 
-// Listen for share button click
 feed.addEventListener("click", (event) => {
   const shareBtn = event.target.closest(".share-btn");
   if (!shareBtn) return;
 
   const tweetId = shareBtn.dataset.id;
-  window.location.href = `/tweet.html?id=${tweetId}`;
+  const tweetUrl = `${window.location.origin}/tweet.html?id=${tweetId}`;
+
+  // Use the Web Share API if available
+  if (navigator.share) {
+    fetch(`${API_URL}/api/posts/${tweetId}`)
+      .then(response => response.json())
+      .then(tweet => {
+        navigator.share({
+          title: `${tweet.author} on TwitClone`,
+          text: tweet.text,
+          url: tweetUrl
+        });
+      })
+      .catch(error => console.error("Error fetching tweet:", error));
+  } else {
+    // Fallback: Copy the link to clipboard
+    navigator.clipboard.writeText(tweetUrl).then(() => {
+      alert("Tweet link copied to clipboard!");
+    });
+  }
 });
 
-async function fetchAndDisplayPosts() {
-  try {
-    const response = await fetch(`${API_URL}/api/posts`);
-    const posts = await response.json();
-
-    feed.innerHTML = ""; 
-
-    posts.forEach((post) => {
-      const tweetElement = createTweetElement(post);
-      feed.appendChild(tweetElement);
-    });
-  } catch (error) {
-    console.error("Error fetching tweets:", error);
-  }
-}
 
 // Call this when the page loads
 document.addEventListener("DOMContentLoaded", fetchAndDisplayPosts);
