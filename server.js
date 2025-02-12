@@ -55,44 +55,61 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'public', 'landing.html'));
 })
 
-// Dynamically Serve `tweet.html` with Meta Tags
+const fetch = require("node-fetch"); // Ensure `node-fetch` is installed
+// Your API base URL
+const API_URL = process.env.API_URL || "https://twitter-clone-cxze.onrender.com";
+
+// Serve static files (CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Route to serve tweet.html with **Server-Side Rendered** meta tags
 app.get("/tweet.html", async (req, res) => {
   const tweetId = req.query.id;
 
   if (!tweetId) {
-    return res.sendFile(path.join(__dirname, "public", "tweet.html"));
+    return res.sendFile(path.join(__dirname, "public", "tweet.html")); // Serve a generic tweet page if no ID
   }
 
   try {
+    // Fetch the tweet data from the API
     const response = await fetch(`${API_URL}/api/posts/${tweetId}`);
+    if (!response.ok) throw new Error("Tweet not found");
     const tweet = await response.json();
 
-    const metaTags = `
-      <meta property="og:title" content="${tweet.author} on TwitClone">
-      <meta property="og:description" content="${tweet.text}">
-      <meta property="og:image" content="${tweet.image ? tweet.image.replace("http://", "https://") : ""}">
-      <meta property="og:url" content="https://twitter-clone-cxze.onrender.com/tweet.html?id=${tweetId}">
-      <meta name="twitter:card" content="summary_large_image">
-    `;
+    // Ensure the tweet content is properly formatted
+    const tweetText = tweet.text ? tweet.text.replace(/"/g, "&quot;") : "No content available.";
+    const tweetAuthor = tweet.author || "Unknown Author";
+    const tweetImage = tweet.image ? tweet.image.replace("http://", "https://") : ""; // Force HTTPS for images
+    const tweetURL = `https://twitter-clone-cxze.onrender.com/tweet.html?id=${tweetId}`;
 
-    // Inject meta tags into `tweet.html`
+    // Generate the full HTML with meta tags
     const tweetPage = `
       <!DOCTYPE html>
       <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${tweet.author} on TwitClone</title>
-        ${metaTags}
-        <link rel="stylesheet" href="./styles/tweet.css">
+        <title>${tweetAuthor} on TwitClone</title>
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:title" content="${tweetAuthor} on TwitClone">
+        <meta property="og:description" content="${tweetText}">
+        <meta property="og:image" content="${tweetImage}">
+        <meta property="og:url" content="${tweetURL}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="${tweetAuthor} on TwitClone">
+        <meta name="twitter:description" content="${tweetText}">
+        <meta name="twitter:image" content="${tweetImage}">
+        
+        <link rel="stylesheet" href="/styles/tweet.css">
       </head>
       <body>
         <div class="main-container">
           <button onclick="goToLanding()" class="back-button">Go Back</button>
           <section id="tweet-container">
-            <h2>${tweet.author}</h2>
-            <p>${tweet.text}</p>
-            ${tweet.image ? `<img src="${tweet.image.replace("http://", "https://")}" alt="Tweet Image" style="max-width: 100%;">` : ""}
+            <h2>${tweetAuthor}</h2>
+            <p>${tweetText}</p>
+            ${tweetImage ? `<img src="${tweetImage}" alt="Tweet Image" style="max-width: 100%;">` : ""}
           </section>
         </div>
         <script>
@@ -104,10 +121,15 @@ app.get("/tweet.html", async (req, res) => {
       </html>
     `;
 
+    // Send the fully-rendered page
     res.send(tweetPage);
+
   } catch (error) {
     console.error("Error fetching tweet:", error);
-    res.sendFile(path.join(__dirname, "public", "tweet.html"));
+    res.status(404).send(`
+      <h1>Tweet Not Found</h1>
+      <p>The tweet you are looking for does not exist.</p>
+    `);
   }
 });
 
