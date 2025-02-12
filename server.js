@@ -55,7 +55,6 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'public', 'landing.html'));
 })
 
-const fetch = require("node-fetch"); // Ensure `node-fetch` is installed
 // Your API base URL
 const API_URL = process.env.API_URL || "https://twitter-clone-cxze.onrender.com";
 
